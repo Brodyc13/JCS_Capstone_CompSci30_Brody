@@ -12,30 +12,29 @@ function food(name, calories, protein){
 document.addEventListener('DOMContentLoaded', () => {
     
     let button = document.getElementById("button");
-    let button2 = document.getElementById("localstorebutton")
     let search = document.getElementById("search");
+    let button2 = document.getElementById("button2")
     
     button.addEventListener('click', () => {
-        
-        GetInput()
+        newFoodInputInput()
     });
 
-    button2.addEventListener('click', () => {
-        let storedfood = JSON.parse(localStorage.getItem("foods"));
-        console.log(storedfood)
-        
-    });
 
     search.addEventListener('input',() =>{
         searchResults()
     })
+
+    button2.addEventListener("click", ()=>{
+        GoalInput()
+    })
+
 
 });
 
 
 
 
-function GetInput(){
+function newFoodInput(){
     let calories = document.getElementById("calorieInput")
     let protein = document.getElementById("proteinInput")
     let foodName = document.getElementById("foodInput")
@@ -65,20 +64,71 @@ function searchResults(){
             let newLI = document.createElement("li");
 
         newLI.textContent = foods[i].name;
+            let deletebutton = document.createElement("button")
+    deletebutton.textContent = "delete"
+     deletebutton.addEventListener("click", ()=>{
+        let foods = JSON.parse(localStorage.foods)
+        
+            searchlist.removeChild(newLI)
+            let index = foods.indexOf(newLI)
+            foods.splice(i, 1)
+
+    localStorage.setItem("foods", JSON.stringify(foods));
+            console.log(foods)
+        
+     })
+     deletebutton.setAttribute("style", "opacity:0" )
+    newLI.appendChild(deletebutton)
+
+
+        
+        newLI.addEventListener("mouseover", () => {
+                deletebutton.setAttribute("style", "opacity:1" )
+            });
+             newLI.addEventListener("mouseout", () => {
+                deletebutton.setAttribute("style", "opacity:0" )
+            });
+
+
 
         searchlist.appendChild(newLI);
+
         }
         
-        
-
     }
    
-    
-
-
 
 }
 
+function GoalInput(){
+    let proteingoal = document.getElementById("proteingoal").value
+    let caloriegoal = document.getElementById("caloriegoal").value
+
+    localStorage.setItem("protein goal", proteingoal)
+    localStorage.setItem("calorie goal", caloriegoal)
+    console.log(localStorage)
+    
+}
+
+const ctx = document.getElementById('pieChart');
+
+new Chart(ctx, {
+  type: 'pie',
+  data: {
+    labels: ['Red', 'Blue', 'Yellow'],
+    datasets: [{
+      data: [30, 50, 20],
+      backgroundColor: [
+        '#ff6384',
+        '#36a2eb',
+        '#ffce56'
+      ]
+    }]
+  },
+  options: {
+    responsive: true
+  }
+});
 
 
 

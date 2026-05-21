@@ -2,20 +2,27 @@
 <html>
 <head>
     <title>Capstone</title>
-    <script src="index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>//chart.js
+    <script defer src="index.js"></script>
+    <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
-<h1 id="test">this is a test</h1>
-<h1>live updates?</h1>
+
+<p>Easy Health</p>
+
+<canvas id="pieChart" width="100px" height="100px"></canvas>
+
+
+
+
 <input id ="foodInput" placeholder="Name of Food"> 
 <br>
 <input id="proteinInput" placeholder="How much protein">
 <br>
 <input id="calorieInput" placeholder="How many calories">
 <br>
-<button id="button">click me when done!</button>
-<button id="localstorebutton">click if u wanna see ur last input</button>
+<button id="button">click me when done with food!</button>
 <br>
 <input id="search" placeholder="search">
 <br>
@@ -27,6 +34,8 @@
 </div>
 <input id ="proteingoal" placeholder="protein goal">
 <input id ="caloriegoal" placeholder="calorie goal">
+<br>
+<button id="button2">click me when done with goals!</button>
 
 </body>
 </html>
