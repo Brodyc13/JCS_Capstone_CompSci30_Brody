@@ -8,4 +8,18 @@ p{
     
 }
 
-  
+  #pieChart {
+    width: 50%;
+    max-width: 300px;
+    height: 300px;
+}
+
+#chartJSOveride {
+    display: inline-flex;
+    
+
+}
+
+#centeringDiv {
+    margin-left: 33%;
+}

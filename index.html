@@ -11,11 +11,21 @@
 
 <p>Easy Health</p>
 
-<canvas id="pieChart" width="100px" height="100px"></canvas>
+<div id="centeringDiv">
+    <div id="chartJSOveride">
+        <canvas id="pieChart" class="caloriesClass" ></canvas>
+    </div>
+
+    <div id="chartJSOveride">
+        <canvas id="pieChart" class="proteinClass" ></canvas>
+    </div>
 
 
 
+</div>
 
+<div id = "inputs">
+    <br>
 <input id ="foodInput" placeholder="Name of Food"> 
 <br>
 <input id="proteinInput" placeholder="How much protein">
@@ -26,6 +36,9 @@
 <br>
 <input id="search" placeholder="search">
 <br>
+
+</div>
+
 
 <ul id="searchresultlist">
     

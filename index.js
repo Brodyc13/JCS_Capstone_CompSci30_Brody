@@ -1,138 +1,133 @@
-
-
-function food(name, calories, protein){
-    this.name=name
-    this.calories=calories
-    this.protein=protein
+function food(name, calories, protein) {
+  this.name = name;
+  this.calories = calories;
+  this.protein = protein;
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+  let button = document.getElementById("button");
+  let search = document.getElementById("search");
+  let button2 = document.getElementById("button2");
 
+  button.addEventListener("click", () => {
+    newFoodInput();
+  });
 
+  search.addEventListener("input", () => {
+    searchResults();
+  });
 
-document.addEventListener('DOMContentLoaded', () => {
-    
-    let button = document.getElementById("button");
-    let search = document.getElementById("search");
-    let button2 = document.getElementById("button2")
-    
-    button.addEventListener('click', () => {
-        newFoodInputInput()
-    });
-
-
-    search.addEventListener('input',() =>{
-        searchResults()
-    })
-
-    button2.addEventListener("click", ()=>{
-        GoalInput()
-    })
-
-
+  button2.addEventListener("click", () => {
+    GoalInput();
+  });
 });
 
+function newFoodInput() {
+  let calories = document.getElementById("calorieInput");
+  let protein = document.getElementById("proteinInput");
+  let foodName = document.getElementById("foodInput");
 
+  let food3 = new food(foodName.value, calories.value, protein.value);
+  console.log(food3);
 
-
-function newFoodInput(){
-    let calories = document.getElementById("calorieInput")
-    let protein = document.getElementById("proteinInput")
-    let foodName = document.getElementById("foodInput")
-    
-
-    let food3 = new food(foodName.value, calories.value, protein.value)
-    console.log(food3)    
-
-    let foods = JSON.parse(localStorage.getItem("foods")) || []//AI help
-    foods.push(food3)
-    localStorage.setItem("foods" ,JSON.stringify(foods))
-    
+  let foods = JSON.parse(localStorage.getItem("foods")) || []; //AI help
+  foods.push(food3);
+  localStorage.setItem("foods", JSON.stringify(foods));
 }
 
-function searchResults(){
-    let searchlist = document.getElementById("searchresultlist")
-    searchlist.innerHTML = "";
-    let foods = JSON.parse(localStorage.getItem("foods")) || []
-   
-    foods.sort((a,b) =>a.name.localeCompare(b.name));//AI help
-    
-   let searchValue = document.getElementById("search").value.toLowerCase()
-      
-    for(let i =0; i <foods.length;i++){
-         
-        if(foods[i].name.toLowerCase().includes(searchValue)){
-            let newLI = document.createElement("li");
+function searchResults() {
+  let searchlist = document.getElementById("searchresultlist");
+  searchlist.innerHTML = "";
+  let foods = JSON.parse(localStorage.getItem("foods")) || [];
 
-        newLI.textContent = foods[i].name;
-            let deletebutton = document.createElement("button")
-    deletebutton.textContent = "delete"
-     deletebutton.addEventListener("click", ()=>{
-        let foods = JSON.parse(localStorage.foods)
-        
-            searchlist.removeChild(newLI)
-            let index = foods.indexOf(newLI)
-            foods.splice(i, 1)
+  foods.sort((a, b) => a.name.localeCompare(b.name)); //AI help
 
-    localStorage.setItem("foods", JSON.stringify(foods));
-            console.log(foods)
-        
-     })
-     deletebutton.setAttribute("style", "opacity:0" )
-    newLI.appendChild(deletebutton)
+  let searchValue = document.getElementById("search").value.toLowerCase();
 
+  for (let i = 0; i < foods.length; i++) {
+    if (foods[i].name.toLowerCase().includes(searchValue)) {
+      let newLI = document.createElement("li");
 
-        
+      newLI.textContent = foods[i].name;
+      function createDeleteButton() {
+        let deletebutton = document.createElement("button");
+        deletebutton.textContent = "delete";
+        deletebutton.addEventListener("click", () => {
+          let foods = JSON.parse(localStorage.foods);
+
+          searchlist.removeChild(newLI);
+          
+          foods.splice(i, 1);
+
+          localStorage.setItem("foods", JSON.stringify(foods));
+          console.log(foods);
+        });
+        deletebutton.setAttribute("style", "opacity:0");
+        newLI.appendChild(deletebutton);
+
         newLI.addEventListener("mouseover", () => {
-                deletebutton.setAttribute("style", "opacity:1" )
-            });
-             newLI.addEventListener("mouseout", () => {
-                deletebutton.setAttribute("style", "opacity:0" )
-            });
+          deletebutton.setAttribute("style", "opacity:1");
+        });
+        newLI.addEventListener("mouseout", () => {
+          deletebutton.setAttribute("style", "opacity:0");
+        });
+      }
 
-
-
-        searchlist.appendChild(newLI);
-
-        }
-        
+      function createAddButton() {
+        let addButton = document.createElement("button");
+        addButton.textContent = "add New Food";
+        addButton.addEventListener("click", () => {
+          let foods = JSON.parse(localStorage.foods);
+            
+      }
     }
-   
+      createDeleteButton();
 
+      searchlist.appendChild(newLI);
+    }
+  }
 }
 
-function GoalInput(){
-    let proteingoal = document.getElementById("proteingoal").value
-    let caloriegoal = document.getElementById("caloriegoal").value
+function GoalInput() {
+  let proteingoal = document.getElementById("proteingoal").value;
+  let caloriegoal = document.getElementById("caloriegoal").value;
 
-    localStorage.setItem("protein goal", proteingoal)
-    localStorage.setItem("calorie goal", caloriegoal)
-    console.log(localStorage)
-    
+  localStorage.setItem("protein goal", proteingoal);
+  localStorage.setItem("calorie goal", caloriegoal);
+  console.log(localStorage);
 }
 
-const ctx = document.getElementById('pieChart');
+let ctx = document.getElementsByClassName("caloriesClass");
+
+let ctx2 = document.getElementsByClassName("proteinClass");
 
 new Chart(ctx, {
-  type: 'pie',
+  type: "pie",
   data: {
-    labels: ['Red', 'Blue', 'Yellow'],
-    datasets: [{
-      data: [30, 50, 20],
-      backgroundColor: [
-        '#ff6384',
-        '#36a2eb',
-        '#ffce56'
-      ]
-    }]
+    datasets: [
+      {
+        data: [2000, 500],
+        backgroundColor: ["cornflowerblue", "#ffffff"],
+      },
+    ],
   },
   options: {
-    responsive: true
-  }
+    responsive: true,
+  },
 });
 
-
-
-
-
-
-
+new Chart(ctx2, {
+  type: "pie",
+  data: {
+    datasets: [
+      {
+        data: [2000, 50],
+        backgroundColor: ["cornflowerblue", "#ffffff"],
+      },
+    ],
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+  },
+});
