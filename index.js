@@ -1,3 +1,6 @@
+let caloriesEaten = 0;
+let proteinEaten = 0
+
 function food(name, calories, protein) {
   this.name = name;
   this.calories = calories;
@@ -49,6 +52,8 @@ function searchResults() {
       let newLI = document.createElement("li");
 
       newLI.textContent = foods[i].name;
+
+
       function createDeleteButton() {
         let deletebutton = document.createElement("button");
         deletebutton.textContent = "delete";
@@ -62,6 +67,7 @@ function searchResults() {
           localStorage.setItem("foods", JSON.stringify(foods));
           console.log(foods);
         });
+
         deletebutton.setAttribute("style", "opacity:0");
         newLI.appendChild(deletebutton);
 
@@ -76,12 +82,27 @@ function searchResults() {
       function createAddButton() {
         let addButton = document.createElement("button");
         addButton.textContent = "add New Food";
+
         addButton.addEventListener("click", () => {
           let foods = JSON.parse(localStorage.foods);
-            
-      }
+          let caloriesofFood = Number(foods[i].calories)
+          let proteinofFood = Number(foods[i].protein)
+          caloriesEaten += caloriesofFood
+          proteinEaten += proteinofFood
+
+          
+
+         ctxChart.data.datasets[0].data = [caloriesEaten, (Number(localStorage.getItem("calorie goal")) - caloriesEaten)]
+         ctxChart2.data.datasets[0].data = [proteinEaten, (Number(localStorage.getItem("protein goal")) - proteinEaten)]
+         ctxChart.update()
+         ctxChart2.update()
+          
+      })
+
+      newLI.appendChild(addButton)
     }
       createDeleteButton();
+      createAddButton();
 
       searchlist.appendChild(newLI);
     }
@@ -101,13 +122,13 @@ let ctx = document.getElementsByClassName("caloriesClass");
 
 let ctx2 = document.getElementsByClassName("proteinClass");
 
-new Chart(ctx, {
+let ctxChart = new Chart(ctx, {
   type: "pie",
   data: {
     datasets: [
       {
-        data: [2000, 500],
-        backgroundColor: ["cornflowerblue", "#ffffff"],
+        data: [caloriesEaten, Number(localStorage.getItem("calorie goal"))-caloriesEaten],
+        backgroundColor: ["cornflowerblue", "#201f1f"],
       },
     ],
   },
@@ -116,13 +137,13 @@ new Chart(ctx, {
   },
 });
 
-new Chart(ctx2, {
+let ctxChart2 =new Chart(ctx2, {
   type: "pie",
   data: {
     datasets: [
       {
-        data: [2000, 50],
-        backgroundColor: ["cornflowerblue", "#ffffff"],
+        data: [proteinEaten, Number(localStorage.getItem("protein goal"))-proteinEaten],
+        backgroundColor: ["cornflowerblue", "#201f1f"],
       },
     ],
   },
@@ -131,3 +152,4 @@ new Chart(ctx2, {
     maintainAspectRatio: false,
   },
 });
+
