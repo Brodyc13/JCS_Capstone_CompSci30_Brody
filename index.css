@@ -20,6 +20,30 @@ p{
 
 }
 
-#centeringDiv {
-    margin-left: 33%;
+
+
+.style1 {
+    display: inline-flex; 
+    font-family: Rubik,  sans-serif;
+     font-weight: 800;
+     color:dimgray;
+     font-size:50px;
+}
+
+#mainRow {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+#legendSection{
+    display: flex;
+    flex-direction: column;
+}
+
+
+#legendRow{
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }

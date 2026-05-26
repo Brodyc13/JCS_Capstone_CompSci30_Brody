@@ -92,10 +92,16 @@ function searchResults() {
 
           
 
-         ctxChart.data.datasets[0].data = [caloriesEaten, (Number(localStorage.getItem("calorie goal")) - caloriesEaten)]
-         ctxChart2.data.datasets[0].data = [proteinEaten, (Number(localStorage.getItem("protein goal")) - proteinEaten)]
+         ctxChart.data.datasets[0].data = [caloriesEaten, (Math.max(0, Number(localStorage.getItem("calorie goal")) - caloriesEaten)) ]
+         ctxChart2.data.datasets[0].data = [proteinEaten, (Math.max(0, Number(localStorage.getItem("protein goal")) - proteinEaten)) ]
          ctxChart.update()
          ctxChart2.update()
+
+         let legendCalories = document.getElementById("legendCalories")
+         let legendProtein = document.getElementById("legendProtein")
+
+          legendProtein.textContent =(`${proteinEaten} Grams of Protein`)
+          legendCalories.textContent = (`${caloriesEaten} Calories`)
           
       })
 
@@ -143,7 +149,7 @@ let ctxChart2 =new Chart(ctx2, {
     datasets: [
       {
         data: [proteinEaten, Number(localStorage.getItem("protein goal"))-proteinEaten],
-        backgroundColor: ["cornflowerblue", "#201f1f"],
+        backgroundColor: ["rgb(72, 192, 122)", "#201f1f"],
       },
     ],
   },
