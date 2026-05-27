@@ -1,5 +1,7 @@
 let caloriesEaten = 0;
-let proteinEaten = 0
+let proteinEaten = 0;
+
+
 
 function food(name, calories, protein) {
   this.name = name;
@@ -14,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   button.addEventListener("click", () => {
     newFoodInput();
+    
   });
 
   search.addEventListener("input", () => {
@@ -57,15 +60,16 @@ function searchResults() {
       function createDeleteButton() {
         let deletebutton = document.createElement("button");
         deletebutton.textContent = "delete";
+
+
         deletebutton.addEventListener("click", () => {
-          let foods = JSON.parse(localStorage.foods);
-
-          searchlist.removeChild(newLI);
           
-          foods.splice(i, 1);
-
-          localStorage.setItem("foods", JSON.stringify(foods));
+          foods.splice(i,1)
+          localStorage.setItem("foods", JSON.stringify(foods))
+          searchResults()
+          
           console.log(foods);
+
         });
 
         deletebutton.setAttribute("style", "opacity:0");
@@ -73,6 +77,8 @@ function searchResults() {
 
         newLI.addEventListener("mouseover", () => {
           deletebutton.setAttribute("style", "opacity:1");
+          
+          
         });
         newLI.addEventListener("mouseout", () => {
           deletebutton.setAttribute("style", "opacity:0");
@@ -89,11 +95,15 @@ function searchResults() {
           let proteinofFood = Number(foods[i].protein)
           caloriesEaten += caloriesofFood
           proteinEaten += proteinofFood
-
+          localStorage.setItem("caloriesEaten", caloriesEaten)
+          localStorage.setItem("proteinEaten", proteinEaten)
           
+        let caloVar =  localStorage.getItem("caloriesEaten")
+        let protVar = localStorage.getItem("protienEaten")
 
-         ctxChart.data.datasets[0].data = [caloriesEaten, (Math.max(0, Number(localStorage.getItem("calorie goal")) - caloriesEaten)) ]
-         ctxChart2.data.datasets[0].data = [proteinEaten, (Math.max(0, Number(localStorage.getItem("protein goal")) - proteinEaten)) ]
+
+         ctxChart.data.datasets[0].data = [caloriesEaten, (Math.max(0, Number(localStorage.getItem("calorie goal")) - caloVar)) ]
+         ctxChart2.data.datasets[0].data = [proteinEaten, (Math.max(0, Number(localStorage.getItem("protein goal")) - protVar)) ]
          ctxChart.update()
          ctxChart2.update()
 
