@@ -1,7 +1,31 @@
-let caloriesEaten = 0;
-let proteinEaten = 0;
+let today = new Date().toLocaleDateString();
+
+let savedDate = localStorage.getItem("savedDate");
+
+if (savedDate !== today) {
+
+  localStorage.setItem("savedDate", today);
+
+  localStorage.setItem("caloriesEaten", 0);
+  localStorage.setItem("proteinEaten", 0);
+
+}
+
+let dateDiv = document.getElementById("todayDate")
+dateDiv.textContent = today
 
 
+
+
+let caloriesEaten = Number(localStorage.getItem("caloriesEaten")) || 0;
+let proteinEaten = Number(localStorage.getItem("proteinEaten")) || 0;
+
+
+let legendCalories = document.getElementById("legendCalories")
+let legendProtein = document.getElementById("legendProtein")
+
+legendProtein.textContent =(`${proteinEaten} Grams of Protein`)
+legendCalories.textContent = (`${caloriesEaten} Calories`)
 
 function food(name, calories, protein) {
   this.name = name;
@@ -99,7 +123,7 @@ function searchResults() {
           localStorage.setItem("proteinEaten", proteinEaten)
           
         let caloVar =  localStorage.getItem("caloriesEaten")
-        let protVar = localStorage.getItem("protienEaten")
+        let protVar = localStorage.getItem("proteinEaten")
 
 
          ctxChart.data.datasets[0].data = [caloriesEaten, (Math.max(0, Number(localStorage.getItem("calorie goal")) - caloVar)) ]
